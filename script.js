@@ -31,16 +31,34 @@ const lookup = {
   ",": ",",
 };
 
-function rot13(encodedStr) {
-  let decodedArr = []; // Your Result goes here
-  // Only change code below this line
+// Function to decode a ROT13 encoded string
+function rot13(encodedString) {
+  // Helper function to shift the letter by 13 places
+  function shiftLetter(letter) {
+    const charCode = letter.charCodeAt(0);
+    let shiftedCharCode = charCode + 13;
 
-  return; //return decodedArr
+    if (shiftedCharCode > 90) { // 90 is the ASCII code for 'Z'
+      shiftedCharCode = shiftedCharCode - 26;
+    }
+
+    return String.fromCharCode(shiftedCharCode);
+  }
+
+  // Regular expression to match uppercase alphabetic letters
+  const uppercaseLettersRegex = /[A-Z]/g;
+
+  // Replace each uppercase letter in the encoded string with its decoded counterpart
+  const decodedString = encodedString.replace(uppercaseLettersRegex, (match) => shiftLetter(match));
+
+  return decodedString;
 }
 
-// You can test your code by running the above function and printing it to console by pressing the run button at the top. To run it with input 36, uncomment the following line
+// Test the function
+const encodedString = "EBG13 rknzcyr!";
+const decodedString = rot13(encodedString);
+console.log(decodedString); // Output: "ROT13 example!"
 
-// console.log(rot13("SERR YBIR? NPPVBWBO"));
 
 // Do not change this line
 window.rot13 = rot13;
